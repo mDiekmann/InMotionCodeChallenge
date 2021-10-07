@@ -16,6 +16,12 @@
 		AB32C729270E6440005C4DF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB32C727270E6440005C4DF4 /* LaunchScreen.storyboard */; };
 		AB32C734270E6441005C4DF4 /* InMotionCodeChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C733270E6441005C4DF4 /* InMotionCodeChallengeTests.swift */; };
 		AB32C73F270E6441005C4DF4 /* InMotionCodeChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C73E270E6441005C4DF4 /* InMotionCodeChallengeUITests.swift */; };
+		AB32C74E270E65A3005C4DF4 /* ImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C74D270E65A2005C4DF4 /* ImageDataModel.swift */; };
+		AB32C754270E6EC6005C4DF4 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C753270E6EC6005C4DF4 /* Image.swift */; };
+		AB32C756270E7575005C4DF4 /* ObjectConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C755270E7575005C4DF4 /* ObjectConvertible.swift */; };
+		AB32C758270E75C5005C4DF4 /* ManagedObjectConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C757270E75C5005C4DF4 /* ManagedObjectConvertible.swift */; };
+		AB32C75A270E86FE005C4DF4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C759270E86FE005C4DF4 /* CoreDataManager.swift */; };
+		AB32C75C270E8AEC005C4DF4 /* CoreDataManager+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C75B270E8AEC005C4DF4 /* CoreDataManager+Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,12 @@
 		AB32C73A270E6441005C4DF4 /* InMotionCodeChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InMotionCodeChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB32C73E270E6441005C4DF4 /* InMotionCodeChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMotionCodeChallengeUITests.swift; sourceTree = "<group>"; };
 		AB32C740270E6441005C4DF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB32C74D270E65A2005C4DF4 /* ImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataModel.swift; sourceTree = "<group>"; };
+		AB32C753270E6EC6005C4DF4 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		AB32C755270E7575005C4DF4 /* ObjectConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectConvertible.swift; sourceTree = "<group>"; };
+		AB32C757270E75C5005C4DF4 /* ManagedObjectConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectConvertible.swift; sourceTree = "<group>"; };
+		AB32C759270E86FE005C4DF4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AB32C75B270E8AEC005C4DF4 /* CoreDataManager+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataManager+Image.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,10 @@
 		AB32C718270E6438005C4DF4 /* InMotionCodeChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				AB32C750270E691C005C4DF4 /* Managers */,
+				AB32C74C270E6581005C4DF4 /* Models */,
+				AB32C751270E6924005C4DF4 /* Views */,
+				AB32C752270E693C005C4DF4 /* View Controllers */,
 				AB32C719270E6438005C4DF4 /* AppDelegate.swift */,
 				AB32C71B270E6438005C4DF4 /* SceneDelegate.swift */,
 				AB32C71D270E6438005C4DF4 /* ViewController.swift */,
@@ -116,6 +132,8 @@
 		AB32C732270E6441005C4DF4 /* InMotionCodeChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				AB32C75E270E8B6A005C4DF4 /* Core Data */,
+				AB32C75D270E8B5E005C4DF4 /* Models */,
 				AB32C733270E6441005C4DF4 /* InMotionCodeChallengeTests.swift */,
 				AB32C735270E6441005C4DF4 /* Info.plist */,
 			);
@@ -129,6 +147,62 @@
 				AB32C740270E6441005C4DF4 /* Info.plist */,
 			);
 			path = InMotionCodeChallengeUITests;
+			sourceTree = "<group>";
+		};
+		AB32C74C270E6581005C4DF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB32C74F270E6893005C4DF4 /* Core Data Models */,
+				AB32C74D270E65A2005C4DF4 /* ImageDataModel.swift */,
+				AB32C755270E7575005C4DF4 /* ObjectConvertible.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AB32C74F270E6893005C4DF4 /* Core Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB32C753270E6EC6005C4DF4 /* Image.swift */,
+				AB32C757270E75C5005C4DF4 /* ManagedObjectConvertible.swift */,
+			);
+			path = "Core Data Models";
+			sourceTree = "<group>";
+		};
+		AB32C750270E691C005C4DF4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				AB32C759270E86FE005C4DF4 /* CoreDataManager.swift */,
+				AB32C75B270E8AEC005C4DF4 /* CoreDataManager+Image.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		AB32C751270E6924005C4DF4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AB32C752270E693C005C4DF4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		AB32C75D270E8B5E005C4DF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AB32C75E270E8B6A005C4DF4 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,8 +336,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB32C71E270E6438005C4DF4 /* ViewController.swift in Sources */,
+				AB32C754270E6EC6005C4DF4 /* Image.swift in Sources */,
+				AB32C758270E75C5005C4DF4 /* ManagedObjectConvertible.swift in Sources */,
+				AB32C756270E7575005C4DF4 /* ObjectConvertible.swift in Sources */,
+				AB32C74E270E65A3005C4DF4 /* ImageDataModel.swift in Sources */,
 				AB32C724270E6438005C4DF4 /* InMotionCodeChallenge.xcdatamodeld in Sources */,
+				AB32C75A270E86FE005C4DF4 /* CoreDataManager.swift in Sources */,
 				AB32C71A270E6438005C4DF4 /* AppDelegate.swift in Sources */,
+				AB32C75C270E8AEC005C4DF4 /* CoreDataManager+Image.swift in Sources */,
 				AB32C71C270E6438005C4DF4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
