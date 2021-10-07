@@ -15,8 +15,8 @@ public class Image: NSManagedObject, ManagedObjectConvertible {
     func from(object: ImageDataModel) {
         self.id = object.id
         self.author = object.author
-        self.height = object.height
-        self.width = object.width
+        self.height = object.height ?? 0
+        self.width = object.width ?? 0
         self.imageUrl = object.imageURL
     }
     
