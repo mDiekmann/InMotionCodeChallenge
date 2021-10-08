@@ -213,7 +213,6 @@
 			children = (
 				AB32C77E270F6411005C4DF4 /* API */,
 				AB32C77D270F6402005C4DF4 /* Core Data */,
-				AB32C77F270F6FD7005C4DF4 /* RequestManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -291,6 +290,7 @@
 				AB32C781270FAE3D005C4DF4 /* APIClient.swift */,
 				AB32C783270FB0ED005C4DF4 /* APIClient+List.swift */,
 				AB32C785270FE355005C4DF4 /* Request.swift */,
+				AB32C77F270F6FD7005C4DF4 /* RequestManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";

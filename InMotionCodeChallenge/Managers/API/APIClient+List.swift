@@ -9,11 +9,6 @@ import Foundation
 import Combine
 
 extension APIClient {
-    // cannot add properties in extension, need to use computed properties
-    private var retrieveLimit: Int{
-        return 50
-    }
-    
     struct GetImagesFromList: Request {
         var path: String = ""
         var httpMethod: HTTPMethod = .get
@@ -22,10 +17,10 @@ extension APIClient {
         typealias ReturnType = [ImageDataModel]
     }
     
-    func getImageList(currentPage: Int) -> AnyPublisher<GetImagesFromList.ReturnType, NetworkRequestError> {
+    func getImageList(currentPage: Int, fetchLimit: Int) -> AnyPublisher<GetImagesFromList.ReturnType, NetworkRequestError> {
         let path = getPathWithAPIVersion("list")
         let queryParams = [ URLQueryItem(name: "page", value: String(currentPage)),
-                            URLQueryItem(name: "limit", value: String(retrieveLimit))]
+                            URLQueryItem(name: "limit", value: String(fetchLimit))]
         
         let getImageListRequest = GetImagesFromList(path: path, queryParams: queryParams)
         
