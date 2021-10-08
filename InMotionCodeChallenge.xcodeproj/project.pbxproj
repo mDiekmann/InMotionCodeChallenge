@@ -39,6 +39,8 @@
 		AB32C782270FAE3D005C4DF4 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C781270FAE3D005C4DF4 /* APIClient.swift */; };
 		AB32C784270FB0ED005C4DF4 /* APIClient+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C783270FB0ED005C4DF4 /* APIClient+List.swift */; };
 		AB32C786270FE355005C4DF4 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C785270FE355005C4DF4 /* Request.swift */; };
+		AB32C788270FEF5F005C4DF4 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C787270FEF5F005C4DF4 /* BaseView.swift */; };
+		AB32C78A270FEF8E005C4DF4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32C789270FEF8E005C4DF4 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		AB32C781270FAE3D005C4DF4 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AB32C783270FB0ED005C4DF4 /* APIClient+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+List.swift"; sourceTree = "<group>"; };
 		AB32C785270FE355005C4DF4 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		AB32C787270FEF5F005C4DF4 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		AB32C789270FEF8E005C4DF4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +220,7 @@
 		AB32C751270E6924005C4DF4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB32C787270FEF5F005C4DF4 /* BaseView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 		AB32C752270E693C005C4DF4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AB32C789270FEF8E005C4DF4 /* BaseViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				AB32C756270E7575005C4DF4 /* ObjectConvertible.swift in Sources */,
 				AB32C74E270E65A3005C4DF4 /* ImageDataModel.swift in Sources */,
 				AB32C768270F4664005C4DF4 /* ImageDataModelError.swift in Sources */,
+				AB32C78A270FEF8E005C4DF4 /* BaseViewController.swift in Sources */,
 				AB32C786270FE355005C4DF4 /* Request.swift in Sources */,
 				AB32C724270E6438005C4DF4 /* InMotionCodeChallenge.xcdatamodeld in Sources */,
 				AB32C75A270E86FE005C4DF4 /* CoreDataManager.swift in Sources */,
@@ -442,6 +449,7 @@
 				AB32C75C270E8AEC005C4DF4 /* CoreDataManager+Image.swift in Sources */,
 				AB32C71C270E6438005C4DF4 /* SceneDelegate.swift in Sources */,
 				AB32C784270FB0ED005C4DF4 /* APIClient+List.swift in Sources */,
+				AB32C788270FEF5F005C4DF4 /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
