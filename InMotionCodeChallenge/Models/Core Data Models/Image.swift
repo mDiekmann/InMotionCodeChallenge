@@ -21,7 +21,7 @@ public class Image: NSManagedObject, ManagedObjectConvertible {
     }
     
     func toObject() -> ImageDataModel {
-        var returnImage = ImageDataModel(id: self.id,
+        let returnImage = ImageDataModel(id: self.id,
                                          author: self.author ?? "",
                                          width: self.width,
                                          height: self.height,
