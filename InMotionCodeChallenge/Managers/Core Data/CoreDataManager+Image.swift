@@ -8,6 +8,12 @@
 import Foundation
 
 extension CoreDataManager {
+    func addImages(_ images: [ImageDataModel]) {
+        for image in images {
+            addImage(image)
+        }
+    }
+    
     func addImage(_ image: ImageDataModel) {
         let context = backgroundContext
         
