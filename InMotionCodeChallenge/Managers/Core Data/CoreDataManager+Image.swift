@@ -32,7 +32,15 @@ extension CoreDataManager {
             try Image.update(image, with: context)
         } catch {
             //TODO: Use a logger
-            print("Error(\(error.localizedDescription)) when saving image \(image.id)")
+            print("Error(\(error.localizedDescription)) when updating image \(image.id)")
         }
+    }
+    
+    func fetchAllImages() -> [ImageDataModel]? {
+        let context = managedObjectContext
+        
+        let retImages = Image.fetchAll(from: context)
+        
+        return retImages
     }
 }

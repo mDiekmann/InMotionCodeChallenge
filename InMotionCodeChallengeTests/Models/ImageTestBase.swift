@@ -18,7 +18,7 @@ class ImageTestBase: MDTestFileBase {
     
     let testInvalidId: Int32 = -1
 
-    func imageFromInit()-> ImageDataModel {
+    func imageFromInit() -> ImageDataModel {
         return ImageDataModel(id: testId, author: testAuthor, width: testWidth, height: testHeight, imageURL: testImageURL)
     }
     
