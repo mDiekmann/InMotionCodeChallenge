@@ -1,5 +1,5 @@
 //
-//  ImageCoreDataTest.swift
+//  ImageTest.swift
 //  InMotionCodeChallengeTests
 //
 //  Created by Michael Diekmann on 10/7/21.
@@ -9,7 +9,7 @@ import XCTest
 import CoreData
 @testable import InMotionCodeChallenge
 
-class ImageCoreDataTest: ImageTestBase {
+class ImageTest: ImageTestBase {
     // need a context to create Image objects
     var coreDataManager: CoreDataManager?
     
@@ -19,7 +19,7 @@ class ImageCoreDataTest: ImageTestBase {
     
     func getTestContext() throws -> NSManagedObjectContext {
         let context = coreDataManager?.managedObjectContext
-        XCTAssertNotNil(context, "Testing oontext is nil")
+        XCTAssertNotNil(context, "Testing context is nil")
         
         return context!
     }

@@ -17,13 +17,17 @@ extension APIClient {
         typealias ReturnType = [ImageDataModel]
     }
     
-    func getImageList(currentPage: Int, fetchLimit: Int) -> AnyPublisher<GetImagesFromList.ReturnType, NetworkRequestError> {
+    func getImageListRequest(currentPage: Int, fetchLimit: Int) -> GetImagesFromList {
         let path = getPathWithAPIVersion("list")
         let queryParams = [ URLQueryItem(name: "page", value: String(currentPage)),
                             URLQueryItem(name: "limit", value: String(fetchLimit))]
         
-        let getImageListRequest = GetImagesFromList(path: path, queryParams: queryParams)
+        return GetImagesFromList(path: path, queryParams: queryParams)
+    }
+    
+    func getImageList(currentPage: Int, fetchLimit: Int) -> AnyPublisher<GetImagesFromList.ReturnType, NetworkRequestError> {
+        let imageListRequest = getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
         
-        return dispatch(getImageListRequest)
+        return dispatch(imageListRequest)
     }
 }
