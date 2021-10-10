@@ -31,3 +31,4 @@ public class Image: NSManagedObject, ManagedObjectConvertible {
         return returnImage
     }
 }
+

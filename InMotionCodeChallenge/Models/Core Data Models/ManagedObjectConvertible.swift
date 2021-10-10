@@ -32,18 +32,24 @@ protocol ManagedObjectConvertible {
     ///   - context: The managed object context.
     static func update(_ object: T, with context: NSManagedObjectContext) throws
 
-    /// Delete an object from Core Data.
+    /// remove an object from Core Data.
     ///
     /// - Parameters:
-    ///   - object: The object to delete.
+    ///   - object: The object to remove.
     ///   - context: The managed object context.
-    static func delete(_ object: T, with context: NSManagedObjectContext) throws
+    static func remove(_ object: T, with context: NSManagedObjectContext) throws
 
     /// Fetch all objects from Core Data.
     ///
     /// - Parameter context: The managed object context.
+    /// - Parameter withSortDescriptors: Optional array for sort descrtors to apply when fetching  iobject array
     /// - Returns: A list of objects.
-    static func fetchAll(from context: NSManagedObjectContext) -> [T]
+    static func fetchAll(from context: NSManagedObjectContext, withSortDescriptors sortDescriptors:[NSSortDescriptor]) -> [T]
+    
+    /// Remove all objects from Core Data.
+    ///
+    /// - Parameter context: The managed object context.
+    static func removeAll(from context: NSManagedObjectContext) throws
 
     /// Set the managed object's parameters with an object's parameters.
     ///
@@ -80,7 +86,7 @@ extension ManagedObjectConvertible where T: ObjectConvertible, Self: NSManagedOb
         try context.save()
     }
 
-    static func delete(_ object: T, with context: NSManagedObjectContext) throws {
+    static func remove(_ object: T, with context: NSManagedObjectContext) throws {
         guard let managedObject = get(object: object, with: context) else {
             return
         }
@@ -90,8 +96,9 @@ extension ManagedObjectConvertible where T: ObjectConvertible, Self: NSManagedOb
         try context.save()
     }
 
-    static func fetchAll(from context: NSManagedObjectContext) -> [T]  {
+    static func fetchAll(from context: NSManagedObjectContext, withSortDescriptors sortDescriptors:[NSSortDescriptor] = []) -> [T]  {
         let request = NSFetchRequest<Self>(entityName: String(describing: self))
+        request.sortDescriptors = sortDescriptors
         request.returnsObjectsAsFaults = false
 
         do {
@@ -100,6 +107,15 @@ extension ManagedObjectConvertible where T: ObjectConvertible, Self: NSManagedOb
         } catch {
             return [T]()
         }
+    }
+    
+    static func removeAll(from context: NSManagedObjectContext) throws {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: String(describing: self))
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        
+        try context.execute(deleteRequest)
+        
+        try context.save()
     }
 
     private static func get(object: T, with context: NSManagedObjectContext) -> Self? {

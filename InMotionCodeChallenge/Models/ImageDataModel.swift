@@ -7,7 +7,11 @@
 
 import Foundation
 
-class ImageDataModel: Codable, ObjectConvertible {
+class ImageDataModel: Codable, Equatable, ObjectConvertible {
+    static func == (lhs: ImageDataModel, rhs: ImageDataModel) -> Bool {
+        (lhs.id == rhs.id) && (lhs.imageURL == rhs.imageURL)
+    }
+    
     var identifier: String?
     
     // values from API endpoint
@@ -24,13 +28,12 @@ class ImageDataModel: Codable, ObjectConvertible {
         case imageURL = "download_url"
     }
     
-    init(id: Int32, author: String?, width: Int16?, height: Int16?, imageURL: String, identifier: String = "") {
+    init(id: Int32, author: String?, width: Int16?, height: Int16?, imageURL: String) {
         self.id = id
         self.author = author
         self.width = width
         self.height = height
         self.imageURL = imageURL
-        self.identifier = identifier
     }
     
     // MARK: - Decodable

@@ -15,7 +15,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
+        apiClient.getImageList(currentPage: 0, fetchLimit: 20)
+            .sink(receiveCompletion: { result in
+                    print(result)
+                },
+                receiveValue: { value in
+            
+                })
+            .store(in: &cancellables)
     }
 }
 

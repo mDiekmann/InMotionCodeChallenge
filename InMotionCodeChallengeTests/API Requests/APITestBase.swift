@@ -15,7 +15,7 @@ class APITestBase: MDTestFileBase {
     var cancellables = [AnyCancellable]()
     
     enum TestFile: String {
-        case equulToRequest_200 = "test_api_get_list_equal_to_requested_200"
+        case equalToRequest_200 = "test_api_get_list_equal_to_requested_200"
         case lessThanRequested_200 = "test_api_get_list_less_than_requested_200"
     }
     
@@ -26,10 +26,12 @@ class APITestBase: MDTestFileBase {
         apiClient = APIClient(urlSession: urlSession)
     }
     
-    func createMockRequestHandler<T: Request>(request:T, statusCode: Int, responseData: Data) -> ((URLRequest) throws -> (HTTPURLResponse, Data)) {
+    func createMockRequestHandler<T: Request>(request:T, statusCode: Int, responseData: Data) throws -> ((URLRequest) throws -> (HTTPURLResponse, Data)) {
         let imageListRequest = request.asURLRequest(baseURL: apiClient.baseURL)
         
-        guard let url = imageListRequest?.url else { fatalError("Unable to create URL for request of type \(type(of: request))") }
+        guard let url = imageListRequest?.url else {
+            throw TestError.invalidURLForRequest(String(describing: request))
+        }
         
         return { retRequest in
             let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: imageListRequest?.allHTTPHeaderFields)!
@@ -47,9 +49,9 @@ class APITestBase: MDTestFileBase {
         successExpectation.isInverted  = true
         let failExpectaion = expectation(description: "Failure")
         
-        let data = try loadJSONFile(TestFile.equulToRequest_200)
+        let data = try loadJSONFile(TestFile.equalToRequest_200)
         let imageListRequest = apiClient.getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
-        let requestHandler = self.createMockRequestHandler(request: imageListRequest, statusCode: statusCode, responseData: data)
+        let requestHandler = try self.createMockRequestHandler(request: imageListRequest, statusCode: statusCode, responseData: data)
         
         MockURLProtocol.requestHandler = requestHandler
         apiClient.getImageList(currentPage: currentPage, fetchLimit: fetchLimit).sink(receiveCompletion: { completion in
