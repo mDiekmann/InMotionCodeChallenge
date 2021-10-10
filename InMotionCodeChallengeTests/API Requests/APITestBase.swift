@@ -51,7 +51,7 @@ class APITestBase: MDTestFileBase {
         
         let data = try loadJSONFile(TestFile.equalToRequest_200)
         let imageListRequest = apiClient.getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
-        let requestHandler = try self.createMockRequestHandler(request: imageListRequest, statusCode: statusCode, responseData: data)
+        let requestHandler = try createMockRequestHandler(request: imageListRequest, statusCode: statusCode, responseData: data)
         
         MockURLProtocol.requestHandler = requestHandler
         apiClient.getImageList(currentPage: currentPage, fetchLimit: fetchLimit).sink(receiveCompletion: { completion in

@@ -23,6 +23,7 @@ enum ContentType: String {
 }
 
 enum NetworkRequestError: LocalizedError, Equatable {
+    case selfRetainError
     case invalidRequest
     case badRequest
     case unauthorized
@@ -50,7 +51,10 @@ class RequestManager {
         return urlSession
             .dataTaskPublisher(for: request)
             // Map on Request response
-            .tryMap({ data, response in
+            .tryMap({ [weak self] (data, response) in
+                guard let self = self else {
+                    throw NetworkRequestError.selfRetainError
+                }
                 // If the response is invalid, throw an error
                 if let response = response as? HTTPURLResponse,
                    !(200...299).contains(response.statusCode) {
@@ -62,7 +66,7 @@ class RequestManager {
             // Decode data using our ReturnType
             .decode(type: ReturnType.self, decoder: JSONDecoder())
             // Handle any decoding errors
-            .mapError { error in
+            .mapError {error in
                 self.handleError(error)
             }
             // And finally, expose our publisher

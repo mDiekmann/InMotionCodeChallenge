@@ -29,7 +29,7 @@ class APIListTest: APITestBase {
         
         let data = try loadJSONFile(TestFile.equalToRequest_200)
         let imageListRequest = apiClient.getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
-        let requestHandler = try self.createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
+        let requestHandler = try createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
         
         MockURLProtocol.requestHandler = requestHandler
         apiClient.getImageList(currentPage: currentPage, fetchLimit: fetchLimit).sink(receiveCompletion: { completion in
@@ -62,7 +62,7 @@ class APIListTest: APITestBase {
         
         let data = try loadJSONFile(TestFile.lessThanRequested_200)
         let imageListRequest = apiClient.getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
-        let requestHandler = try self.createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
+        let requestHandler = try createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
         
         MockURLProtocol.requestHandler = requestHandler
         apiClient.getImageList(currentPage: currentPage, fetchLimit: fetchLimit).sink(receiveCompletion: { completion in
@@ -96,7 +96,7 @@ class APIListTest: APITestBase {
         // empty data to force a bad decoding
         let data = Data()
         let imageListRequest = apiClient.getImageListRequest(currentPage: currentPage, fetchLimit: fetchLimit)
-        let requestHandler = try self.createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
+        let requestHandler = try createMockRequestHandler(request: imageListRequest, statusCode: 200, responseData: data)
         
         MockURLProtocol.requestHandler = requestHandler
         apiClient.getImageList(currentPage: currentPage, fetchLimit: fetchLimit).sink(receiveCompletion: { completion in

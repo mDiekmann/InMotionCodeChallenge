@@ -6,71 +6,79 @@
 //
 
 import Foundation
+import Combine
 
 public enum ImageListFetchRequesError: Error {
     case generalError
-    case invalidLocalData
-    case invalidFeedObj
-    case getFeedReqFailure
+    case selfRetainError
+    case alreadyLoading
+    case getListReqFailure
     case endOfFeedErr
 }
 
 class ImageListFetchRequestManager: NSObject {
-    var itemsPerRequest: Int = 20
-    private var isLoading = false
-    private(set) var currentIndex: Int = 0
-    private var endOfFeedReached: Bool = false
+    private(set) var currentPage: Int = 0
+    private(set) var itemsPerRequest: Int = 20
+    private(set) var isLoading = false
+    private(set) var endOfFeedReached: Bool = false
+    private let apiClient: APIClient!
+    private var cancellable: AnyCancellable?
     
     // start index used to start retrieving from set index when cached data is present
-    init(startIndex: Int = 0) {
-        self.currentIndex = startIndex
+    init(startPage: Int = 0, apiClient: APIClient) {
+        self.currentPage = startPage
+        self.apiClient = apiClient
     }
     
-    func setFetchIndex(_ index: Int) {
-        currentIndex = index
+    func setFetchPage(_ page: Int) {
+        currentPage = page
     }
     
     func canFetchMoreItems() -> Bool {
         return !endOfFeedReached
     }
     
-    /*func fetchNext(onSuccess: @escaping ([GizmoDataModel]) -> Void, onError: @escaping
-                    (FeedFetchRequestError) -> Void) {
-        // if already loading ignore request to fetch more items
-        // UI asking for more items before initial request completed
-        if isLoading {
-            return
-        }
-        if endOfFeedReached {
-            onError(.endOfFeedErr)
-            return
-        }
-        
-        guard let feedType = feedType,
-              let user = user else {
-            onError(.invalidLocalData)
-            return
-        }
-        
-        isLoading = true
-        API.getFeed(forFeedType: feedType, startIndex: currentIndex, endIndex: currentIndex + itemsPerRequest, filters: filters, forUser: user.uuid) { feed in
-            self.isLoading = false
-            if let feed = feed {
-                self.currentIndex = self.currentIndex + feed.gizmos.count
-                // if less than the requested count end of the feed reached
-                self.endOfFeedReached = feed.count < self.itemsPerRequest
-                onSuccess(feed.gizmos)
-            } else {
-                onError(.invalidFeedObj)
+    func fetchNext() -> Future<[ImageDataModel], ImageListFetchRequesError>  {
+        let future = Future<[ImageDataModel], ImageListFetchRequesError> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(.selfRetainError))
+                return
             }
-        } onFailure: { error in
-            self.isLoading = false
-            onError(.getFeedReqFailure)
+            if self.isLoading {
+                // if already loading don't retrieve more data or unexpected results may occur
+                promise(.failure(.alreadyLoading))
+                return
+            } else if self.endOfFeedReached {
+                // if at the end of the feed return error notifying user of that.
+                promise(.failure(.endOfFeedErr))
+            } else {
+                self.cancellable = self.apiClient.getImageList(currentPage: self.currentPage, fetchLimit: self.itemsPerRequest).sink(receiveCompletion: { completion in
+                    switch completion {
+                        case .failure:
+                            promise(.failure(.getListReqFailure))
+                        case .finished:
+                            //TODO: use logger
+                            print("Successfully retrieved images from API")
+                    }
+                },
+                receiveValue: { response in
+                    self.currentPage += 1
+                    self.endOfFeedReached = response.count < self.itemsPerRequest
+                    promise(.success(response))
+                })
+            }
         }
-    }*/
+        
+        return future
+    }
+    
+    func cancelFetch() {
+        cancellable?.cancel()
+        cancellable = nil
+    }
     
     func reset() {
-        currentIndex = 0
+        currentPage = 0
         endOfFeedReached = false
     }
 }

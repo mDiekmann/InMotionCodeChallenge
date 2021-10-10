@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-let apiClient = APIClient()
-
 class APIClient {
     #if DEBUG
         let baseURL = "picsum.photos"
