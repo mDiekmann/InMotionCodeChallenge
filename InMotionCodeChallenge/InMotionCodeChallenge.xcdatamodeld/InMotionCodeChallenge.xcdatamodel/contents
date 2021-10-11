@@ -3,9 +3,17 @@
     <entity name="Image" representedClassName=".Image" syncable="YES" codeGenerationType="category">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="imageUrl" attributeType="String"/>
         <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+        <userInfo>
+            <entry key="key" value="id"/>
+        </userInfo>
     </entity>
     <elements>
         <element name="Image" positionX="-63" positionY="-18" width="128" height="104"/>

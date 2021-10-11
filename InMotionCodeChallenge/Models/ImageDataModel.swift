@@ -16,7 +16,7 @@ class ImageDataModel: Codable, Equatable, ObjectConvertible {
     
     // values from API endpoint
     // must have values to display an Image
-    var id: Int32
+    var id: String
     var imageURL: String
     
     // optional values
@@ -28,7 +28,7 @@ class ImageDataModel: Codable, Equatable, ObjectConvertible {
         case imageURL = "download_url"
     }
     
-    init(id: Int32, author: String?, width: Int16?, height: Int16?, imageURL: String) {
+    init(id: String, author: String?, width: Int16?, height: Int16?, imageURL: String) {
         self.id = id
         self.author = author
         self.width = width
@@ -41,21 +41,20 @@ class ImageDataModel: Codable, Equatable, ObjectConvertible {
         let container =  try decoder.container(keyedBy: CodingKeys.self)
         // check for existence instead of just letting standard decode throw error to get more specific error
         if let idStr = try container.decodeIfPresent(String.self, forKey: .id) {
-            if let idVal = Int32(idStr) {
-                if idVal < 0 {
-                    throw ImageDataModelError.invalidIdValue(idVal)
-                }
-                self.id = idVal
-            } else {
-                throw ImageDataModelError.idConversion
-            }
+            self.id = idStr
         } else {
             throw ImageDataModelError.missingId
         }
         
         // check for existence instead of just letting standard decode throw error to get more specific error
         if let imageURLStr = try container.decodeIfPresent(String.self, forKey: .imageURL) {
-            self.imageURL = imageURLStr
+            // images provided from api are HUUGE, luckily they provide a way to specify size
+            let urlArr = imageURLStr.components(separatedBy: "/")
+            let scaledWidth = (Int(urlArr[5]) ?? 1)/10
+            let scaledHeight = (Int(urlArr[6]) ?? 1) / 10
+            var urlStr = imageURLStr.replacingOccurrences(of: urlArr[5], with: String(scaledWidth))
+            urlStr = urlStr.replacingOccurrences(of: urlArr[6], with: String(scaledHeight))
+            self.imageURL = urlStr
         } else {
             throw ImageDataModelError.missingAssociatedImage
         }

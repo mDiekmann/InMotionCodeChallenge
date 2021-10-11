@@ -51,7 +51,7 @@ class CoreDataTestImage: CoreDataTestBase {
         XCTAssertTrue(listsEqual, "List retrieved from Core Data differs after item deletion")
         
         // test adding single item
-        let testAddImage = ImageDataModel(id: 999999, author: "Michael Diekmann", width: 100, height: 100, imageURL: "testUrl")
+        let testAddImage = ImageDataModel(id: "999999", author: "Michael Diekmann", width: 100, height: 100, imageURL: "testUrl")
         sortedTestImages.append(testAddImage)
         sortedTestImages = sortedTestImages.sorted(by: { $0.id < $1.id })
         testCDManager.addImage(testAddImage)

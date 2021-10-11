@@ -10,11 +10,11 @@ import XCTest
 
 class ImageTestBase: MDTestFileBase {
 
-    let testId: Int32 = 0
+    let testId: String = "0"
     let testAuthor = "Michael Diekmann"
     let testWidth: Int16 = 1544
     let testHeight: Int16 = 1024
-    let testImageURL = "https://picsum.photos/id/117/1544/1024"
+    let testImageURL = "https://picsum.photos/id/117/154/102"
     
     let testInvalidId: Int32 = -1
 

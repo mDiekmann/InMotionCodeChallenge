@@ -17,16 +17,30 @@ public enum ImageListFetchRequesError: Error {
 }
 
 class ImageListFetchRequestManager: NSObject {
-    private(set) var currentPage: Int = 0
-    private(set) var itemsPerRequest: Int = 20
+    private(set) var currentPage: Int = 1
+    private(set) var itemsPerRequest: Int = 36
     private(set) var isLoading = false
     private(set) var endOfFeedReached: Bool = false
     private let apiClient: APIClient!
     private var cancellable: AnyCancellable?
     
+    // init with how many known items there currently are, current page decided from that
+    init(totalCurrentImages: Int, apiClient: APIClient = APIClient()) {
+        self.currentPage = Int(totalCurrentImages / itemsPerRequest) + 1
+        // API treats page 0 and 1 as the same pages increment 0 to 1 to prevent issues
+        if self.currentPage == 0 {
+            self.currentPage = 1
+        }
+        self.apiClient = apiClient
+    }
+    
     // start index used to start retrieving from set index when cached data is present
-    init(startPage: Int = 0, apiClient: APIClient) {
+    init(startPage: Int = 0, apiClient: APIClient = APIClient()) {
         self.currentPage = startPage
+        // API treats page 0 and 1 as the same pages increment 0 to 1 to prevent issues
+        if self.currentPage == 0 {
+            self.currentPage = 1
+        }
         self.apiClient = apiClient
     }
     
@@ -72,7 +86,7 @@ class ImageListFetchRequestManager: NSObject {
         return future
     }
     
-    func cancelFetch() {
+    func cancel() {
         cancellable?.cancel()
         cancellable = nil
     }

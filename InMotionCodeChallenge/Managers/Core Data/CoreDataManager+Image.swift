@@ -39,6 +39,20 @@ extension CoreDataManager {
         return retImages
     }
     
+    func getAllImagesCount() -> Int {
+        let context = managedObjectContext
+        var retCount = 0
+        do {
+            let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
+            retCount = try context.count(for: fetchRequest)
+        } catch {
+            //TODO: Use a logger
+            print("Error(\(error.localizedDescription)) when getting total image count")
+        }
+        
+        return retCount
+    }
+    
     func updateImage(_ image: ImageDataModel) {
         let context = managedObjectContext
         
@@ -54,7 +68,7 @@ extension CoreDataManager {
             // if not we need to retrieve the object from the id and update that
             do {
                 let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "id = %d", image.id)
+                fetchRequest.predicate = NSPredicate(format: "id = %@", image.id)
                 
                 let images = try context.fetch(fetchRequest)
                 
@@ -83,7 +97,7 @@ extension CoreDataManager {
             // if not we need to retrieve the object from the id and delete that
             do {
                 let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "id = %d", image.id)
+                fetchRequest.predicate = NSPredicate(format: "id = %@", image.id)
                 
                 let images = try context.fetch(fetchRequest)
                 
