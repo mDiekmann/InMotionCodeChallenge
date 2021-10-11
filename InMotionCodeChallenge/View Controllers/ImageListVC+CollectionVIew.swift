@@ -72,3 +72,18 @@ extension ImageListVC: UICollectionViewDelegateFlowLayout {
         return insets.left / 2
     }
 }
+
+extension ImageListVC: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            print("Prefetch - \(indexPath)")
+            if let image = fetchedResultsController.sections?[indexPath.section].objects?[indexPath.item]  as? Image,
+               let urlStr = image.imageUrl,
+               let url = URL(string: urlStr),
+               let keyStr = image.id {
+                print("Preloading - \(urlStr)")
+                imageCache.loadImageIfNotInCache(imageUrl: url, forKey: keyStr)
+            }
+        }
+    }
+}

@@ -67,6 +67,7 @@ class ImageListVC: BaseViewController<ImageListView> {
         
         customView.collectionView.delegate = self
         customView.collectionView.dataSource = self
+        customView.collectionView.prefetchDataSource = self
         customView.collectionView.register(ImageListCollectionViewCell.self, forCellWithReuseIdentifier: ImageListCollectionViewCell.identifier)
         if coreDataManager.getAllImagesCount() == 0 {
             fetchMoreImages()
